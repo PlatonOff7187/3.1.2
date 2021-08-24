@@ -7,7 +7,14 @@ import com.example.modalForm.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+;
 
 import java.util.HashSet;
 import java.util.List;
@@ -59,14 +66,14 @@ public class MainController {
     }
 
 
-  @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
+  @RequestMapping(method = RequestMethod.POST, value = "/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "select_roles", required = false) String[] roles) {
         userService.update(user,roles);
         return "redirect:/admin";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public String delete(@PathVariable("id") Integer id) {
         userService.delete(id);
         return "redirect:/admin";

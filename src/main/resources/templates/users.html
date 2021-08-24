@@ -189,7 +189,7 @@
           </button>
         </div>
 
-        <form th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}">
+        <form th:method="POST" th:action="@{/{id}(id=${user.getId()})}">
           <div align="center">
             <div class="modal-body">
               <label for="id" class="col-form-label">ID</label>
@@ -275,7 +275,7 @@
           </button>
         </div>
 
-        <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
+        <form th:method="GET" th:action="@{/{id}(id=${user.getId()})}">
           <div align="center">
             <div class="modal-body">
               <label for="idDel" class="col-form-label">ID</label>
