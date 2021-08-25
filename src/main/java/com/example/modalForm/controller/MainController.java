@@ -6,22 +6,20 @@ import com.example.modalForm.service.RoleServiceImpl;
 import com.example.modalForm.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 ;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
+
 @Controller
 @RequestMapping("")
+@Transactional
 public class MainController {
     @Autowired
     private UserServiceImpl userService;
@@ -29,13 +27,12 @@ public class MainController {
     private RoleServiceImpl roleService;
 
 
-    @GetMapping(value = "/admin")
+    @RequestMapping(method = RequestMethod.GET, value = "/admin")
     public String showAllUsers(ModelMap model) {
         List<User> list = userService.getAllUsers();
         model.addAttribute("allRoles", roleService.getAllRoles());
         model.addAttribute("allUsers", list);
         model.addAttribute("addUser", new User());
-        model.addAttribute("allRoles", roleService.getAllRoles());
         return "users";
     }
 
@@ -66,7 +63,7 @@ public class MainController {
     }
 
 
-  @RequestMapping(method = RequestMethod.POST, value = "/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "select_roles", required = false) String[] roles) {
         userService.update(user,roles);

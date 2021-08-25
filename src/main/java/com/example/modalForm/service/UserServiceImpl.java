@@ -6,6 +6,8 @@ import com.example.modalForm.repo.RoleRepository;
 import com.example.modalForm.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -58,7 +61,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public User getUserById(Integer id) {
+        return userRepository.findByIdFetchRoles(id);
     }
+
+
 }
